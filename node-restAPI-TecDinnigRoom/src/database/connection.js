@@ -8,7 +8,7 @@ const dbSettings={
     options: {
         encrypt: true, //for azure
         trustServerCertificate: true, //for local dev
-    }
+    } 
 }
 
 
@@ -17,6 +17,7 @@ export async function getConnection(){
         const pool = await sql.connect(dbSettings)
         return pool;
     }catch(error){
+        console.log('lol');
         console.log(error)
     }
 }

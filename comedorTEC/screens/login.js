@@ -10,6 +10,7 @@ const regexCorreo = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|
 
 const OnSignInPressed = (data) => {
     logguearUsuario(data)
+    console.log(data)
 
 };
 

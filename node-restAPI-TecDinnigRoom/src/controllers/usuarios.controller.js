@@ -19,7 +19,7 @@ export const registrarUsuario = async (req, res) => {
             .input('fechaNacimiento', req.body.fechaNacimiento)
             .execute(`CrearUsuarioNuevo`);
         const newUser = result;
-        console.log(newUser)
+        return newUser;
     } catch (error) {
         res.status(500).json(error);
     }

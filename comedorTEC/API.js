@@ -6,7 +6,7 @@ export const logguearUsuario = async (credenciales) => {
             method: "POST", headers: { Accept: "application/json", "Content-Type": "application/json" },
             body: JSON.stringify(credenciales)
         });
-    return await res.json()
+     //console.log(res)
 };
 
 export const crearCuenta = async (personaNueva) => {
@@ -17,7 +17,6 @@ export const crearCuenta = async (personaNueva) => {
         });
     return await res.json()
 };
-
 
 const API_Alimentos = 'http://10.0.2.2:4000/alimentos'
 
@@ -37,6 +36,19 @@ export const deleteAlimento = async (id) => {
 //OBTENER ALIMENTOS X ID
 export const getAlimentosID = async (id) => {
     await fetch(`${API_Alimentos}/${id}`)
+};
+
+
+//AGREGAR ALIMENTO
+export const agregarAlimento = async(nombre, tipo, precio, disponibilidad)=>{
+    const objeto = {"nombre": nombre,"tipo":tipo,"precio":precio,"disponibilidad":disponibilidad }
+    const jsonObjeto = JSON.parse(JSON.stringify(objeto))
+    console.log(typeof(objeto))
+    console.log(JSON.stringify(objeto))
+    const res = await fetch(API_Alimentos, {
+        method: "POST", headers: { Accept: "application/json", "Content-Type": "application/json" },             
+        body: JSON.stringify(objeto)
+    });
 };
 
 const API_TipoAlimento = 'http://10.0.2.2:4000/tipoAlimento'

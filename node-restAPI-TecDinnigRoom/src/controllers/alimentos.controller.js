@@ -41,3 +41,18 @@ export const getTipoAlimento = async (req,res)=>{
     console.log(result);
     res.json(result.recordset)
 };
+
+//AGREGAR ALIMENTO
+export const agregarAlimento = async (req,res) =>{
+    console.log('LLEGAAAAAAAA')
+    console.log(req.body)
+    const pool = await getConnection()
+    const result = await pool.request()
+        .input('nombreAlimento',req.body.nombre)
+        .input('tipoAlimento',parseInt(req.body.tipo))
+        .input('disponibilidad',parseInt(req.body.disponibilidad))
+        .input('precio',parseInt(req.body.precio))
+        .execute('agregarAlimento')
+    
+    res.json(result.recordset)
+};

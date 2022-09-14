@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import AlimentosItem from './AlimentosItem'
-import { getAlimentos, deleteAlimento,getTipoAlimento } from '../api'
+import { getAlimentos, deleteAlimento,getTipoAlimento } from '../API'
 
 //CARGA TODOS LOS ALIMENTOS
 const AlimentosList = () => {

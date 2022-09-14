@@ -10,7 +10,7 @@ const HomeScreen = () => {
   return (
     <Layout>
     <AlimentosList />
-    <TiposList/>
+    
     {/* BOTON GESTION DE CLIENTES */}
     <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Agregar Alimento")}>
         <Text style={styles.buttonText}> Agregar Alimento </Text>
