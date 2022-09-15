@@ -8,6 +8,9 @@ import cors from "cors";
 //importar rutas
 import alimentosRoutes from './routes/alimentos.routes'
 import usuariosRoutes from './routes/usuarios.routes'
+import clientesRoutes from './routes/clientes.routes'
+import pedidosRoutes from './routes/pedidos.routes'
+import comprasRoutes from './routes/compras.routes'
 
 const app = express()
 import('./config/passport');
@@ -16,7 +19,9 @@ import('./config/passport');
 app.set('port', config.port || 3000)
 
 //Middlewares
-app.use(cors());
+app.use(cors({
+    credentials:true
+  }))
 app.use(morgan('dev'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,6 +33,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
 app.use(alimentosRoutes);
+app.use(clientesRoutes);
 app.use(usuariosRoutes);
+app.use(pedidosRoutes);
+app.use(comprasRoutes)
+
+
 export default app

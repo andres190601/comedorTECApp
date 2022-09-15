@@ -11,6 +11,12 @@ import ModAlimentosScreen from "./screens/ModAlimentoScreen";
 import NewAlimento from "./screens/NewAlimento";
 import AsignarTiempo from "./screens/AsignarTiempo";
 import AlimentoDia from "./screens/AlimentosDia";
+import ActualizarUsuario from "./screens/actualizarUsuario";
+import ClientesScreen from "./screens/clientes";
+import PedidosScreen from "./screens/PedidosScreen"
+import ActualizarPedidoScreen from "./screens/ActualizarPedidoScreen";
+import AlimentosClienteScreen from "./screens/AlimentosClienteScreen";
+import CarritoScreen from "./screens/CarritoScreen";
 
 
 
@@ -19,11 +25,16 @@ import AlimentoDia from "./screens/AlimentosDia";
 const Stack = createNativeStackNavigator()
 
 const App = () => {
+
+  global.Carrito = [];
+  global.Total = 0;
+  global.IdUser = 0;
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Ingresar usuario" component={Login} options={{headerShown: false}}/>
-        <Stack.Screen name="Registrar usuario" component={Register} options={{headerShown: false}}/>
+        <Stack.Screen name="Ingresar usuario" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="Registrar usuario" component={Register} options={{ headerShown: false }} />
         <Stack.Screen name="AdminScreen" component={AdminScreen}
           options={({ navigation }) => ({
             title: 'Funciones de Administrador',
@@ -36,11 +47,27 @@ const App = () => {
             )
           })}
         />
-        <Stack.Screen name="Gestión de Alimentos" component={HomeScreen}/>
-        <Stack.Screen name="Modificar Alimento" component={ModAlimentosScreen}/>
-        <Stack.Screen name="Agregar Alimento" component={NewAlimento}/>
-        <Stack.Screen name="Asignar Tiempo de Comida" component={AsignarTiempo}/>
-        <Stack.Screen name="Alimentos del Dia" component={AlimentoDia}/>
+        <Stack.Screen name="Compra-Alimentos del dia" component={AlimentosClienteScreen}
+        options={({ navigation }) => ({
+          title: 'Compra-Alimentos del dia',
+          headerStyle: {},
+          headerTitleStyle: {},
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate("Carrito de Compras")}>
+              <Text>Carrito</Text>
+            </TouchableOpacity>
+          )
+        })}/>
+        <Stack.Screen name="Clientes" component={ClientesScreen} />
+        <Stack.Screen name="Actualizar usuario" component={ActualizarUsuario} />
+        <Stack.Screen name="Gestión de Pedidos" component={PedidosScreen} />
+        <Stack.Screen name="Actualizar Pedido" component={ActualizarPedidoScreen} />
+        <Stack.Screen name="Gestión de Alimentos" component={HomeScreen} />
+        <Stack.Screen name="Modificar Alimento" component={ModAlimentosScreen} />
+        <Stack.Screen name="Agregar Alimento" component={NewAlimento} />
+        <Stack.Screen name="Asignar Tiempo de Comida" component={AsignarTiempo} />
+        <Stack.Screen name="Alimentos del Dia" component={AlimentoDia} />
+        <Stack.Screen name="Carrito de Compras" component={CarritoScreen}/>
 
 
 

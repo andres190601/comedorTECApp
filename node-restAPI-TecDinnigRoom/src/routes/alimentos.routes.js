@@ -1,7 +1,8 @@
 import { Router } from "express";
 import {
     getAlimentos, eliminarAlimento, getAlimentosID, getTipoAlimento,
-    agregarAlimento, modificarAlimento, obtenerAlimentoSpecial, getTiempos, asignarTiempo, getAlimentoxTiempo
+    agregarAlimento, modificarAlimento, obtenerAlimentoSpecial, getTiempos, asignarTiempo, getAlimentoxTiempo,
+    getAlimentoxTiempoxTipo
 } from '../controllers/alimentos.controller'
 const router = Router()
 
@@ -24,5 +25,6 @@ router.post('/tiempo', asignarTiempo)
 
 //RUTAS ALIMENTOXTIEMPO
 router.get('/tiempo/alimento/:tiempo', getAlimentoxTiempo)
+router.post('/alimentosCliente', getAlimentoxTiempoxTipo)
 
 export default router

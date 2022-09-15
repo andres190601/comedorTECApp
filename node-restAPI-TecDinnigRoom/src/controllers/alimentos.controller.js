@@ -2,6 +2,7 @@ import { getConnection } from '../database/connection'
 
 //OBTENER TODOS LOS ALIMENTOS
 export const getAlimentos = async (req, res) => {
+    console.log(req.user)
     const pool = await getConnection()
     const result = await pool.request()
         .input('tipoAlimento', '')
@@ -21,7 +22,6 @@ export const obtenerAlimentoSpecial = async (req, res) => {
 
 //OBTENER TODOS LOS SPECIAL
 export const getAlimentoxTiempo = async (req, res) => {
-    console.log("llega a getAlimentoxTiempo BE");
     const pool = await getConnection()
     const result = await pool.request()
         .input('idTiempo', parseInt(req.params.tiempo))
@@ -30,6 +30,16 @@ export const getAlimentoxTiempo = async (req, res) => {
     res.json(result.recordset)
 };
 
+//OBTENER TODOS LOS SPECIAL
+export const getAlimentoxTiempoxTipo = async (req, res) => {
+    console.log("AQUI ")
+    const pool = await getConnection()
+    const result = await pool.request()
+        .input('idTiempo', parseInt(req.body.tiempo))
+        .input('IdTipo', parseInt(req.body.tipo))
+        .execute('getAlimentos_filtrosCliente')
+    res.json(result.recordset) 
+};
 
 //BUSCAR ALIMENTO POR ID
 export const getAlimentosID = async (req, res) => {
@@ -96,8 +106,6 @@ export const modificarAlimento = async (req, res) => {
     if (req.body.disponibilidad == ''){
         disponibilidad = 0;
     }
-    console.log("req.body")
-    console.log(req.body)
     const pool = await getConnection()
     const result = await pool.request()
         .input('idAlimento', req.body.id)
@@ -108,5 +116,4 @@ export const modificarAlimento = async (req, res) => {
         .execute('modificarAlimento')
 
     res.json(result)
-
 };

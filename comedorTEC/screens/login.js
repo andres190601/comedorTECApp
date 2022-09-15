@@ -29,10 +29,11 @@ const Login = () => {
                 ]);
             }
             else if (resultado.hasOwnProperty('emailUsuario')) {
+                IdUser = resultado.IdPersona;
                 const tipoUsuario = resultado.IdTipoUsuario
                 if(tipoUsuario == 1){
                     Alert.alert('Bienvenido', 'Se ha ingresado correctamente como usuario', [
-                        { text: 'Ok', onPress: () => navigation.navigate("Gestión de Alimentos") }
+                        { text: 'Ok', onPress: () => navigation.navigate("Compra-Alimentos del dia",{tipo: '',tiempo:1}) }
                     ]);
                 }
                 else if(tipoUsuario == 0){

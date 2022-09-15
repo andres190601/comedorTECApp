@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
-const AlimentosItemAux = ({ alimento }) => {
+const AlimentosItemCompra = ({ alimento, compraAux }) => {
   const navigation = useNavigation()
+
+  
 
   return (
     <View style={styles.itemContainer}>
@@ -15,7 +17,16 @@ const AlimentosItemAux = ({ alimento }) => {
         <Text style={styles.itemTitle}> Disponible: {alimento.disponibilidad_alimento.toString()} </Text>
         <Text style={styles.itemTitle}> Tiempo: {alimento.nombre_tiempo_comida} </Text>
       </TouchableOpacity>
+      {/* BOTON DELETE ALIMENTO */}
+      <TouchableOpacity
+        style={{ backgroundColor: '#094293', borderRadius: 5 }}
+        onPress={()=> compraAux (alimento.id_alimento)}
+      >
+        <Text style={{ color: '#FFFFFF' }}>COMPRAR</Text>
+        
+      </TouchableOpacity>
 
+      
     </View>
   )
 }
@@ -23,9 +34,9 @@ const AlimentosItemAux = ({ alimento }) => {
 const styles = StyleSheet.create({
   itemContainer: {
     backgroundColor: '#779ecb',
-    padding: 10,
+    padding: 5,
     marginVertical: 8,
-    borderRadius: 5,
+    borderRadius: 3,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
@@ -34,4 +45,4 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   }
 })
-export default AlimentosItemAux
+export default AlimentosItemCompra
