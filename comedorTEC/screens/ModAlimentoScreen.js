@@ -41,9 +41,18 @@ const ModAlimentosScreen = ({navegation, route}) => {
     if(data.precio == undefined){
       data.precio = ''
     }
-
-    const res = await modificarAlimento(route.params.id, data.nombre,selected,data.precio,selectedDisponible)
-    validacion(res.returnValue)
+    console.log("selectedDisponible")
+    console.log(selectedDisponible)
+    if(selectedDisponible==1){
+      const res = await modificarAlimento(route.params.id, data.nombre,selected,data.precio,1)
+      validacion(res.returnValue)
+    }
+    else{
+      const res = await modificarAlimento(route.params.id, data.nombre,selected,data.precio,selectedDisponible)
+      validacion(res.returnValue)
+    }
+    
+    
   };
 
   const validacion=(retorno)=>{
@@ -78,28 +87,6 @@ const ModAlimentosScreen = ({navegation, route}) => {
 
   })
 
-  const handleChange = (name, value) => {
-    setAlimento({ ...alimento, [name]: value })
-  };
-
-  const handleSubmit2 = () => {
-    agregarAlimento(alimento.nombre, selected, alimento.precio, selectedDisponible)
-  }
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || fechaNacimiento;
-    setShow()
-    setFechaNacimiento(currentDate);
-
-    let tempDate = new Date(currentDate);
-    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
-    setText(fDate);
-    setValue("fechaNacimiento", fDate)
-  };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-  };
 
   return (
     <ScrollView>

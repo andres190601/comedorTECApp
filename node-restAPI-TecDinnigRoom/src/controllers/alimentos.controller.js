@@ -21,6 +21,7 @@ export const obtenerAlimentoSpecial = async (req, res) => {
 
 //OBTENER TODOS LOS SPECIAL
 export const getAlimentoxTiempo = async (req, res) => {
+    console.log("llega a getAlimentoxTiempo BE");
     const pool = await getConnection()
     const result = await pool.request()
         .input('idTiempo', parseInt(req.params.tiempo))
@@ -37,7 +38,6 @@ export const getAlimentosID = async (req, res) => {
         .input('tipoAlimento', '')
         .input('idAlimento', req.params.id)
         .execute('readAlimentos')
-
     res.json(result.recordset)
 };
 
@@ -93,10 +93,11 @@ export const asignarTiempo = async (req, res) => {
 //MODIFICAR ALIMENTO
 export const modificarAlimento = async (req, res) => {
     let disponibilidad=1;
-    if (req.body.disponibilidad = ''){
+    if (req.body.disponibilidad == ''){
         disponibilidad = 0;
     }
-
+    console.log("req.body")
+    console.log(req.body)
     const pool = await getConnection()
     const result = await pool.request()
         .input('idAlimento', req.body.id)
@@ -106,7 +107,6 @@ export const modificarAlimento = async (req, res) => {
         .input('precio', parseInt(req.body.precio))
         .execute('modificarAlimento')
 
-    console.log(result)
     res.json(result)
 
 };
