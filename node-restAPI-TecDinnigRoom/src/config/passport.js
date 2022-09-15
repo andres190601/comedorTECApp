@@ -1,8 +1,8 @@
 import passport from "passport";
 const localStrategy = require("passport-local").Strategy;
-import {getConnection} from '../database/connection'
+import { getConnection } from '../database/connection'
 
-passport.use('local',new localStrategy(
+passport.use('local', new localStrategy(
   {
     usernameField: 'email',
     passwordField: 'password',
@@ -14,13 +14,13 @@ passport.use('local',new localStrategy(
     let emailUsuario = '';
     let carritoCompra = [];
     try {
+
       const pool = await getConnection();
       const result = await pool
         .request()
         .input('email', username)
         .input('password', password)
         .execute(`verifyLogin`);
-        console.log(result.returnValue)
       if (result.returnValue != 0) {
         if (result.returnValue == 2) {
           return done(null, false, { message: "User not found" });
@@ -37,10 +37,10 @@ passport.use('local',new localStrategy(
     } catch (error) {
       console.log(error);
     }
-    let user = { IdTipoUsuario, emailUsuario, IdPersona, carritoCompra};
-    console.log(user)
+    let user = { IdTipoUsuario, emailUsuario, IdPersona, carritoCompra };
     return done(null, user, { message: "You are now logged in." });
-  }));
+  }
+));
 
 
 passport.serializeUser((user, done) => {

@@ -15,13 +15,18 @@ const AdminScreen = () =>{
         </TouchableOpacity>
 
         {/* BOTON GESTION DE TIEMPOS DE COMIDA */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Asignar Tiempo de Comida")}>
           <Text style={styles.buttonText}> Gestión de Tiempos de Comida </Text>
         </TouchableOpacity>
 
         {/* BOTON GESTION DE CLIENTES */}
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}> Gestión de Clientes </Text>
+        </TouchableOpacity>
+
+        {/* BOTON COMIDAS DEL DIA*/}
+        <TouchableOpacity style={styles.button}onPress={() => navigation.navigate("Alimentos del Dia",{id: 1})}>
+          <Text style={styles.buttonText}> Comidas del Dia </Text>
         </TouchableOpacity>
 
 

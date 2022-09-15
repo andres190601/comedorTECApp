@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
-const AlimentosItem = ({ alimento, handleDelete }) => {
+const AlimentosItemAux = ({ alimento }) => {
   const navigation = useNavigation()
 
-  
   return (
     <View style={styles.itemContainer}>
-      <TouchableOpacity 
-        onPress={() => navigation.navigate("Modificar Alimento",{id: alimento.id_alimento})}
-        >
+      <TouchableOpacity >
         <Text style={styles.itemTitle}> {alimento.nombre_alimento} </Text>
         <Text style={styles.itemTitle}> Codigo: {alimento.id_alimento} </Text>
         <Text style={styles.itemTitle}> Precio: {alimento.precio_alimento} </Text>
@@ -18,13 +15,6 @@ const AlimentosItem = ({ alimento, handleDelete }) => {
         <Text style={styles.itemTitle}> Disponible: {alimento.disponibilidad_alimento.toString()} </Text>
       </TouchableOpacity>
 
-      {/* BOTON DELETE ALIMENTO */}
-      <TouchableOpacity 
-        style={{ backgroundColor: '#094293', padding: 7, borderRadius: 5 }}
-        onPress={()=> handleDelete (alimento.id_alimento)}
-        >
-        <Text style={{ color: '#FFFFFF' }}>ELIMINAR</Text>
-      </TouchableOpacity>
     </View>
   )
 }
@@ -43,4 +33,4 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   }
 })
-export default AlimentosItem
+export default AlimentosItemAux

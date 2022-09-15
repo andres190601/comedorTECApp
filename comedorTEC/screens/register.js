@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, Platform } from 'react-native'
+import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, Platform, Alert } from 'react-native'
 import React, { useState } from 'react'
 import logo from '../assets/images/logoTEC.png'
 import CustomInput from '../components/CustomInputs/CustomInput'
@@ -7,29 +7,55 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { useForm, Controller } from 'react-hook-form'
 import { TextInput } from 'react-native'
 import { crearCuenta } from '../API'
+import { useNavigation } from '@react-navigation/native'
 
-const regexCorreo = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+const regexCorreo = /^[A-Za-z0-9._%+-]+@estudiantec\.cr$/
 const regexNumeros = /^[0-9]*$/
 
-const RegistrarPressed = (data) => {
-    crearCuenta(data);
-};
 
-const OnSignInPressed = () => {
-
-};
-
-
-const register = () => {
+const Register = () => {
     const { control, setValue, handleSubmit, formState: { errors }, } = useForm();
 
     const [fechaNacimiento, setFechaNacimiento] = useState(new Date());
     const [show, setShow] = useState(false);
     const [textDate, setText] = useState('Empty');
 
+    const navigation = useNavigation()
 
     const { height } = useWindowDimensions();
 
+
+    const RegistrarPressed = (data) => {
+        (async () => {
+            const resultado = await crearCuenta(data);
+            const valorRetorno = resultado.returnValue
+            if (valorRetorno == 2) {
+                Alert.alert('OOPS', 'Ya existe una cuenta con este corre', [
+                    { text: 'Entendido' }
+                ]);
+            }
+            else if (valorRetorno == 3) {
+                Alert.alert('OOPS', 'Ya existe una persona registrada con este carnet estudiantil', [
+                    { text: 'Entendido' }
+                ]);
+            }
+            else if (valorRetorno == 4) {
+                Alert.alert('OOPS', 'Ya existe una persona registrada con está cédula', [
+                    { text: 'Entendido' }
+                ]);
+            }
+            else if (valorRetorno == 0) {
+                Alert.alert('Registrado', 'Su cuenta ha sido creada correctamente', [
+                    { text: 'Entendido', onPress: () => navigation.navigate("Ingresar usuario")}
+                ]);
+            }
+        })()
+    };
+    
+    const OnSignInPressed = () => {
+    
+        navigation.navigate("Ingresar usuario")
+    };
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || fechaNacimiento;
@@ -73,7 +99,7 @@ const register = () => {
                     name="carnet"
                     control={control}
                     type='numeric'
-                    rules={{ required: "Este campo es requerido", pattern: { value: regexNumeros, message: "Este campo solo admite valores numéricos" }}}
+                    rules={{ required: "Este campo es requerido", pattern: { value: regexNumeros, message: "Este campo solo admite valores numéricos" } }}
                 />
                 <CustomInput
                     placeholder="Cédula"
@@ -111,7 +137,7 @@ const register = () => {
                     placeholder="Correo electrónico"
                     name="correo"
                     control={control}
-                    rules={{ required: "Este campo es requerido", pattern: { value: regexCorreo, message: "Correo electrónico inválido" } }}
+                    rules={{ required: "Este campo es requerido", pattern: { value: regexCorreo, message: 'Correo electrónico inválido (asegúrese que el dominio sea "estudiantec.cr")' } }}
                 />
                 <CustomInput
                     placeholder="Contraseña"
@@ -162,4 +188,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default register
+export default Register

@@ -1,29 +1,59 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions } from 'react-native'
+import { View, Text, Image, StyleSheet, useWindowDimensions, Alert } from 'react-native'
 import React, { useState } from 'react'
 import logo from '../assets/images/logoTEC.png'
 import CustomInput from '../components/CustomInputs/CustomInput'
 import CustomButton from '../components/CustomButton/CustomButton'
 import { useForm } from 'react-hook-form'
 import { logguearUsuario } from '../API'
+import { useNavigation } from '@react-navigation/native'
 
 const regexCorreo = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 
-const OnSignInPressed = (data) => {
-    logguearUsuario(data)
-    console.log(data)
 
-};
 
-const registrarPressed = () => {
-    console.warn('registrarPressed');
-};
 
-const login = () => {
+const Login = () => {
+
+    const navigation = useNavigation()
 
     const { height } = useWindowDimensions();
 
-    const { control, handleSubmit, formState: {errors}, } = useForm();
+    const { control, handleSubmit, formState: { errors }, } = useForm();
 
+    const OnSignInPressed = (data) => {
+        (async () => {
+            const resultado = await logguearUsuario(data);
+            if (resultado.hasOwnProperty('Error')) {
+                Alert.alert('OOPS', 'No se ha encontrado un usuario con las combinación de credenciales suministradas', [
+                    { text: 'Entendido' }
+                ]);
+            }
+            else if (resultado.hasOwnProperty('emailUsuario')) {
+                const tipoUsuario = resultado.IdTipoUsuario
+                if(tipoUsuario == 1){
+                    Alert.alert('Bienvenido', 'Se ha ingresado correctamente como usuario', [
+                        { text: 'Ok', onPress: () => navigation.navigate("Gestión de Alimentos") }
+                    ]);
+                }
+                else if(tipoUsuario == 0){
+                    Alert.alert('Bienvenido', 'Se ha ingresado correctamente como administrador', [
+                        { text: 'Ok', onPress: () => navigation.navigate("AdminScreen") }
+                    ]);
+                }
+            }
+            else {
+                Alert.alert('OOPS', 'Ha ocurrido un error a la hora de ingresar, por favor inténtelo de nuevo', [
+                    { text: 'Ok' }
+                ]);
+            }
+        })()
+
+    };
+
+    const registrarPressed = () => {
+
+        navigation.navigate("Registrar usuario")
+    };
 
     return (
         <View style={styles.root}>
@@ -33,7 +63,7 @@ const login = () => {
                 name="email"
                 placeholder="Correo electrónico"
                 control={control}
-                rules={{required: "Este campo es requerido", pattern:{value:regexCorreo,message:"Correo electrónico inválido"}}}
+                rules={{ required: "Este campo es requerido", pattern: { value: regexCorreo, message: "Correo electrónico inválido" } }}
             />
 
             <CustomInput
@@ -41,7 +71,7 @@ const login = () => {
                 placeholder="Contraseña"
                 control={control}
                 secureTextEntry={true}
-                rules={{required: "Este campo es requerido", minLength:{value: 6, message:"La contraseña debe de tener al menos 6 caracteres"}}}
+                rules={{ required: "Este campo es requerido", minLength: { value: 6, message: "La contraseña debe de tener al menos 6 caracteres" } }}
             />
 
             <CustomButton text="Ingresar" onPress={handleSubmit(OnSignInPressed)} />
@@ -67,4 +97,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default login
+export default Login

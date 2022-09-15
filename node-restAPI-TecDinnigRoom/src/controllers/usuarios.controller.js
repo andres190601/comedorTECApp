@@ -1,10 +1,7 @@
 import { getConnection } from '../database/connection'
 
-
-
 export const registrarUsuario = async (req, res) => {
     try {
-        console.log(req.body)
         const pool = await getConnection();
         const result = await pool
             .request()
@@ -18,8 +15,7 @@ export const registrarUsuario = async (req, res) => {
             .input('edad', parseInt(req.body.edad))
             .input('fechaNacimiento', req.body.fechaNacimiento)
             .execute(`CrearUsuarioNuevo`);
-        const newUser = result;
-        return newUser;
+        res.send(result)
     } catch (error) {
         res.status(500).json(error);
     }
