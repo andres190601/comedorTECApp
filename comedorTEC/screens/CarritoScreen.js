@@ -4,25 +4,37 @@ import { Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import CarritoList from '../components/CarritoList'
 import { Alert } from 'react-native'
-import {procesarCompraSP} from '../API'
+import {procesarCompraSP,generarPF} from '../API'
 
 
-const procesarCompra = () => {
-  //pasar al formato json bonito
-  let json = []
-  for (var i in Carrito) {
-    json.push({ "idAlimento": Carrito[i].id_alimento, "cantidad": Carrito[i].cantidadPorciones })
-  }
-  if (json == [] || json == 0) {
-    Alert.alert('Error!', 'No hay alimentos que procesar')
-  }
-  else {
-    procesarCompraSP(IdUser,json);
-  }
-}
+
 
 const CarritoScreen = () => {
   const navigation = useNavigation()
+
+
+  const intermedioCompra = async ()=>{
+
+  }
+  const procesarCompra =  async () => {
+  
+    //pasar al formato json bonito
+    let json = []
+    for (var i in Carrito) {
+      json.push({ "idAlimento": Carrito[i].id_alimento, "cantidad": Carrito[i].cantidadPorciones })
+    }
+    if (json == [] || json == 0) {
+      Alert.alert('Error!', 'No hay alimentos que procesar')
+    }
+    else {
+      await procesarCompraSP(IdUser,json);
+    }
+    Carrito = []
+    Total = 0
+    await generarPF(1)
+    Alert.alert('Listo!', 'Compra Procesada',[{ onPress: () => navigation.navigate("Compra-Alimentos del dia",{tipo: '',tiempo:1}) }])
+  }
+
 
   return (
     <Layout>
@@ -51,6 +63,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 })
+
+
 
 
 export default CarritoScreen;

@@ -18,6 +18,7 @@ import ActualizarPedidoScreen from "./screens/ActualizarPedidoScreen";
 import AlimentosClienteScreen from "./screens/AlimentosClienteScreen";
 import CarritoScreen from "./screens/CarritoScreen";
 import HistorialScreen from "./screens/HistorialScreen";
+import Ejemplo from "./screens/Ejemplo";
 
 
 
@@ -33,7 +34,10 @@ const App = () => {
 
   return (
     <NavigationContainer>
+      
       <Stack.Navigator>
+
+      {/*<Stack.Screen name="Ejemplo" component={Ejemplo}/>*/}
         <Stack.Screen name="Ingresar usuario" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Registrar usuario" component={Register} options={{ headerShown: false }} />
         <Stack.Screen name="AdminScreen" component={AdminScreen}
@@ -70,6 +74,8 @@ const App = () => {
         <Stack.Screen name="Alimentos del Dia" component={AlimentoDia} />
         <Stack.Screen name="Carrito de Compras" component={CarritoScreen}/>
         <Stack.Screen name="Historial de Compras" component={HistorialScreen}/>
+
+        
 
 
 

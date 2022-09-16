@@ -1,8 +1,10 @@
 import { Router } from "express";
 import {procesarCompra} from '../controllers/compras.controller'
-
+import {getInfoCompra} from '../controllers/compras.controller'
 const router = Router()
 
+//Ruta par compras 
+router.get('/compras/:id/:estado',getInfoCompra)
 //RUTAS ALIMENTOS
 router.post('/compra', procesarCompra)
 
