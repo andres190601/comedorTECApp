@@ -25,6 +25,8 @@ const ClienteList = () => {
     await loadClientes();
   }
 
+  
+
   const renderItem = ({ item }) => {
     return <ClienteItem cliente={item} handleDelete={handleDelete} />
   }

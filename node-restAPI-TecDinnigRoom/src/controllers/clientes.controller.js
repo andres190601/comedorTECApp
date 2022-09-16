@@ -66,3 +66,10 @@ export const eliminarCliente = async (req, res) => {
     res.json(result);
 };
 
+export const getPedidoXIdPersona = async (req, res) => {
+    const pool = await getConnection()
+    const result = await pool.request()
+        .input('idPersona', parseInt(req.params.id))
+        .execute('readHistorial')
+    res.json(result)
+};

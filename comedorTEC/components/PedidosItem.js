@@ -18,6 +18,7 @@ const PedidosItem = ({ pedido, handleDelete }) => {
         <Text style={styles.itemTitle}> Nombre cliente: {pedido.nombre_persona+" "+pedido.apellido1_persona+" "+pedido.apellido2_persona} </Text>
         <Text style={styles.itemTitle}> Correo cliente: {pedido.correo_usuario} </Text>
         <Text style={styles.itemTitle}> Fecha compra: {pedido.fecha_compra} </Text>
+        <Text style={styles.itemTitle}> Activo?: { pedido.activo.toString() } </Text>
       </TouchableOpacity>
 
       {/* BOTON DELETE Pedido */}

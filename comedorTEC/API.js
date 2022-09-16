@@ -228,10 +228,17 @@ export const actualizarUsuario = async (idPersona,
     return await res.json();
 };
 
-//ELIMINAR ALIMENTO
+//ELIMINAR CLIENTE
 export const deleteCliente = async (carnet) => {
     const res = await fetch(`${API_Clientes}/${carnet}`,{
         method: "DELETE",
     });
     return await res.json();
+};
+
+//OBTENER HISTORIAL COMPRAS CLIENTE
+
+export const getPedidoIDPersona = async (id) => {
+    const res = await fetch(`${API_Clientes}/${id}`)
+    return await res.json()
 };

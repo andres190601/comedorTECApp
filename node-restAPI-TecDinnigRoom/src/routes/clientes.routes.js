@@ -5,7 +5,8 @@ import {
     getClienteByCedula,
     getTipoUsuario,
     eliminarCliente,
-    actualizarCliente } from "../controllers/clientes.controller";
+    actualizarCliente,
+    getPedidoXIdPersona } from "../controllers/clientes.controller";
 
     const router = Router();
 
@@ -21,6 +22,8 @@ router.get('/clientes/cedula/:cedula', getClienteByCedula);
 router.get('/clientes/tipoUsuario', getTipoUsuario);
 
 router.post('/clientes/actualizar', actualizarCliente);
+
+router.get('/clientes/:id',getPedidoXIdPersona)
 
 // DELETE Clientes
 

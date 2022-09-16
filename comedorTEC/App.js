@@ -17,6 +17,7 @@ import PedidosScreen from "./screens/PedidosScreen"
 import ActualizarPedidoScreen from "./screens/ActualizarPedidoScreen";
 import AlimentosClienteScreen from "./screens/AlimentosClienteScreen";
 import CarritoScreen from "./screens/CarritoScreen";
+import HistorialScreen from "./screens/HistorialScreen";
 
 
 
@@ -68,6 +69,7 @@ const App = () => {
         <Stack.Screen name="Asignar Tiempo de Comida" component={AsignarTiempo} />
         <Stack.Screen name="Alimentos del Dia" component={AlimentoDia} />
         <Stack.Screen name="Carrito de Compras" component={CarritoScreen}/>
+        <Stack.Screen name="Historial de Compras" component={HistorialScreen}/>
 
 
 
